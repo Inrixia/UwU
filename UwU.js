@@ -19,7 +19,9 @@ discord.on("message", async msg => {
 	if (!msg.guild) return;
     if (config.sadID == msg.author.id) {
 		if (!hooks.has(msg.channel)) hooks.set(msg.channel, await msg.channel.createWebhook("OwO", { reason: "Y E S" }))
-        hooks.get(msg.channel).send(translate(msg.content), {
+		const translation = translate(msg.content)
+		console.log(`${msg.content} -> ${translation}`)
+        hooks.get(msg.channel).send(translation, {
             username: msg.guild.member(msg.author).nickname||msg.author.username,
             avatarURL: msg.author.avatarURL()
 		})
@@ -32,5 +34,7 @@ process.on("SIGINT", () => {
 	console.log("Hook deletion finished")
 	process.exit(1)
 })
+
+process.on("uncaughtException", console.log)
 
 discord.login(config.token)
