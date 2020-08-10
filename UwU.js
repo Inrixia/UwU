@@ -10,7 +10,10 @@ const discord = new discordjs.Client()
  */
 const hooks = new discordjs.Collection()
 
-discord.on("ready", () => console.log("Hewwo wowld!!"))
+discord.on("ready", () => {
+    console.log("Hewwo wowld!!")
+    discord.user.setStatus("invisible")
+})
 
 
 discord.on("message", async msg => {
